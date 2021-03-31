@@ -5,7 +5,11 @@ const getRandomLib = (cb) => {
   const index = Math.floor(Math.random() * 5);
 
   Template.find({ id: index }, (err, result) => {
-    cb(result);
+    if (err) {
+      console.log(err);
+    } else {
+      cb(result);
+    }
   })
 
 }

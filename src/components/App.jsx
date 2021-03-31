@@ -3,8 +3,6 @@ import React from 'react';
 import LibBox from './LibBox';
 import Search from './Search';
 
-import getRandomLib from '../../handlers/getRandomLib';
-
 class App extends React.Component {
   constructor(props) {
     super(props)

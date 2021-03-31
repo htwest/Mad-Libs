@@ -6,7 +6,9 @@ const getRandomLib = require('../handlers/getRandomLib');
 libRouter.use(express.json());
 
 libRouter.get('/', (req, res) => {
-  res.send('works');
+  getRandomLib((result) => {
+    res.send(result[0]);
+  })
 })
 
 module.exports = libRouter;
