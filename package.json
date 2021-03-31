@@ -4,7 +4,7 @@
   "description": "A Game built with React to generate Mad Libs based off the users Input",
   "main": "index.js",
   "scripts": {
-    "start": "webpack serve --config ./webpack.config.js --mode development",
+    "react-dev": "webpack --mode development --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,10 +21,15 @@
     "@babel/core": "^7.13.14",
     "@babel/node": "^7.13.13",
     "@babel/preset-env": "^7.13.12",
+    "@babel/preset-react": "^7.13.13",
     "babel-loader": "^8.2.2",
     "nodemon": "^2.0.7",
     "webpack": "^5.28.0",
     "webpack-cli": "^4.6.0",
     "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   }
 }
