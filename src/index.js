@@ -1,9 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const title = 'React with Webpack and Babel';
+import App from './components/App';
 
-ReactDOM.render(
-  <div>HELLO WORLD</div>,
-  document.getElementById('app')
-);
+ReactDOM.render(<App />, document.getElementById('app'));
