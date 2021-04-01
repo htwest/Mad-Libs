@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const searchLibs = (userName) => {
+const searchLibs = (userName, cb) => {
   axios.get(`http://localhost:3000/user/${userName}`)
   .then((res) => {
     cb(res.data);

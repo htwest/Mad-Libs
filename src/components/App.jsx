@@ -3,6 +3,7 @@ import React from 'react';
 import LibBox from './LibBox';
 import Search from './Search';
 import MadLib from './MadLib';
+import LibList from './LibList';
 
 const retrieveLib = require('../handlers/retrieveLib');
 const parseLib = require('../handlers/parseLib');
@@ -15,7 +16,10 @@ class App extends React.Component {
     this.state = {
       template: '',
       libWords: {},
-      visible: false
+      retrievedLibs: [],
+      libVisible: false,
+      wordVisible: true,
+      retrievedVisible: false
     }
     retrieveLib.bind(this);
     parseLib.bind(this);
@@ -72,13 +76,21 @@ class App extends React.Component {
     this.setState({
       template: lib,
       libWords: newWords,
-      visible: true
+      libVisible: true,
+      wordVisible: false
     })
   }
 
   searchForLibs() {
     const userName = document.getElementById("searchUserName").value;
-    searhLibs(userName);
+    searhLibs(userName, (data) => {
+      this.setState({
+        retrievedLibs: data,
+        libVisible: false,
+        wordVisible: false,
+        retrievedVisible: true
+      })
+    });
   }
 
   render() {
@@ -88,8 +100,9 @@ class App extends React.Component {
           <h1>MAD LIBS</h1>
           <Search searchForLibs={this.searchForLibs.bind(this)}/>
         </div>
-        {this.state.visible ? <MadLib lib={this.state.template}/> : null}
-        {this.state.visible ? null : <LibBox wordObj={this.state.libWords} generateMadLib={this.generateMadLib.bind(this)}/>}
+        {this.state.retrievedVisible ? <LibList retrievedLibs={this.state.retrievedLibs}/> : null}
+        {this.state.libVisible ? <MadLib lib={this.state.template}/> : null}
+        {this.state.wordVisible ? <LibBox wordObj={this.state.libWords} generateMadLib={this.generateMadLib.bind(this)}/> : null}
       </div>
     )
   }
