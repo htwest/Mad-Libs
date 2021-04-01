@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
-const Template = require('../models/template.model');
+const mongoose = require("mongoose");
+const Template = require("../models/template.model");
 
 const getRandomLib = (cb) => {
-  const index = Math.floor(Math.random() * 5);
+  const index = Math.floor(Math.random() * 10);
 
   Template.find({ id: index }, (err, result) => {
     if (err) {
@@ -10,8 +10,7 @@ const getRandomLib = (cb) => {
     } else {
       cb(result);
     }
-  })
-
-}
+  });
+};
 
 module.exports = getRandomLib;
