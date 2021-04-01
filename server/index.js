@@ -11,10 +11,11 @@ const port = 3000;
 
 // ROUTE IMPORTS
 const libRouter = require('./routes/lib');
-
+const usernameRouter = require('./routes/username');
 // ROUTES
-app.use('/lib', libRouter);
 
+app.use('/lib', libRouter);
+app.use('/user', usernameRouter);
 
 // DATABASE AND SERVER CONNECTION
 mongoose.connect('mongodb://localhost:27017/madlib', {useNewUrlParser: true, useUnifiedTopology: true}, (err, res) => {

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
-function Search() {
+function Search({ searchForLibs }) {
   return (
     <form>
-      <input type ="text"/>
-      <button type="button">SEARCH</button>
+      <input type ="text" placeholder="Search By Username" id="searchUserName"/>
+      <button type="button" onClick={searchForLibs}>Go!</button>
     </form>
   )
 }
