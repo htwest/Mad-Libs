@@ -1,26 +1,26 @@
-import React from 'react';
+import React from "react";
 
-import LibBox from './LibBox';
-import Search from './Search';
-import MadLib from './MadLib';
-import LibList from './LibList';
+import LibBox from "./LibBox";
+import Search from "./Search";
+import MadLib from "./MadLib";
+import LibList from "./LibList";
 
-const retrieveLib = require('../handlers/retrieveLib');
-const parseLib = require('../handlers/parseLib');
-const saveLib = require('../handlers/saveLib');
-const searhLibs = require('../handlers/searchLibs');
+const retrieveLib = require("../handlers/retrieveLib");
+const parseLib = require("../handlers/parseLib");
+const saveLib = require("../handlers/saveLib");
+const searhLibs = require("../handlers/searchLibs");
 
 class App extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      template: '',
+      template: "",
       libWords: {},
       retrievedLibs: [],
       libVisible: false,
       wordVisible: true,
-      retrievedVisible: false
-    }
+      retrievedVisible: false,
+    };
     retrieveLib.bind(this);
     parseLib.bind(this);
   }
@@ -30,10 +30,10 @@ class App extends React.Component {
       parseLib(madlib, (wordObj) => {
         this.setState({
           template: madlib,
-          libWords: wordObj
-        })
-      })
-    })
+          libWords: wordObj,
+        });
+      });
+    });
   }
 
   generateMadLib() {
@@ -48,28 +48,28 @@ class App extends React.Component {
       newWords[id] = value;
     }
 
-    let lib = this.state.template.split(' ')
+    let lib = this.state.template.split(" ");
     for (const key in newWords) {
-      let wordType = `(${key})`
+      let wordType = `(${key})`;
 
       for (let i = 0; i < lib.length; i++) {
         if (lib[i] === wordType) {
           lib[i] = newWords[key];
         }
-        if (lib[i].substring(0, lib[i].length -1) === wordType) {
-          let punct = lib[i].substring(lib[i].length -1, lib[i].length)
+        if (lib[i].substring(0, lib[i].length - 1) === wordType) {
+          let punct = lib[i].substring(lib[i].length - 1, lib[i].length);
           const fullWord = newWords[key] + punct;
           lib[i] = fullWord;
         }
       }
     }
 
-    lib = lib.join(' ');
+    lib = lib.join(" ");
 
     const dataObj = {
       username: userName,
-      madlib: lib
-    }
+      madlib: lib,
+    };
 
     saveLib(dataObj);
 
@@ -77,8 +77,8 @@ class App extends React.Component {
       template: lib,
       libWords: newWords,
       libVisible: true,
-      wordVisible: false
-    })
+      wordVisible: false,
+    });
   }
 
   searchForLibs() {
@@ -88,23 +88,33 @@ class App extends React.Component {
         retrievedLibs: data,
         libVisible: false,
         wordVisible: false,
-        retrievedVisible: true
-      })
+        retrievedVisible: true,
+      });
     });
   }
 
   render() {
     return (
-      <div>
-        <div>
-          <h1>MAD LIBS</h1>
-          <Search searchForLibs={this.searchForLibs.bind(this)}/>
+      <div className="container">
+        <div className="row">
+          <h1 className="col-sm title">MAD LIBS</h1>
+          <Search
+            className="col-sm"
+            searchForLibs={this.searchForLibs.bind(this)}
+          />
         </div>
-        {this.state.retrievedVisible ? <LibList retrievedLibs={this.state.retrievedLibs}/> : null}
-        {this.state.libVisible ? <MadLib lib={this.state.template}/> : null}
-        {this.state.wordVisible ? <LibBox wordObj={this.state.libWords} generateMadLib={this.generateMadLib.bind(this)}/> : null}
+        {this.state.retrievedVisible ? (
+          <LibList retrievedLibs={this.state.retrievedLibs} />
+        ) : null}
+        {this.state.libVisible ? <MadLib lib={this.state.template} /> : null}
+        {this.state.wordVisible ? (
+          <LibBox
+            wordObj={this.state.libWords}
+            generateMadLib={this.generateMadLib.bind(this)}
+          />
+        ) : null}
       </div>
-    )
+    );
   }
 }
 
